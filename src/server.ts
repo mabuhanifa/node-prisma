@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
-import express from "express";
+import express, { Request, Response } from "express";
 const port = process.env.PORT || 3000;
+
 const app = express();
 app.use(express.json());
 const client = new PrismaClient();
-
-app.post("/", (req: any, res: any) => {
+console.log(`object`);
+app.post("/", (req: Request, res: Response) => {
   const data = req.body;
   try {
     console.log(data);
