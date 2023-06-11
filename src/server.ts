@@ -31,6 +31,26 @@ app.get("/", async (req: Request, res: Response) => {
   }
 });
 
+app.put("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { username, password } = req.body;
+
+  try {
+    const user = await prisma.user.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        username: username,
+        password: password,
+      },
+    });
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.delete("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
