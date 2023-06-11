@@ -8,15 +8,24 @@ const prisma = new PrismaClient();
 
 app.post("/", async (req: Request, res: Response) => {
   const { username, password } = req.body;
-  console.log(req.body);
+
   try {
-    const user = prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         username: username,
         password: password,
       },
     });
     res.send(user);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/", async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.send(users);
   } catch (error) {
     console.log(error);
   }
