@@ -31,6 +31,21 @@ app.get("/", async (req: Request, res: Response) => {
   }
 });
 
+app.get("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.put("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   const { username, password } = req.body;
