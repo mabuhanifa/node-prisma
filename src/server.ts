@@ -9,8 +9,6 @@ app.use(cors());
 
 app.use("/api", userRouter);
 
-app.delete("/:id");
-
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
