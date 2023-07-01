@@ -13,7 +13,7 @@ export const createUser = async (req: Request, res: Response) => {
     });
     res.send(user);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
 
