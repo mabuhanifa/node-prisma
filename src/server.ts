@@ -1,10 +1,16 @@
 import { PrismaClient } from "@prisma/client";
+import cors from "cors";
 import express, { Request, Response } from "express";
+import userRouter from "./routes/userRoute";
 const port = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 const prisma = new PrismaClient();
+
+app.use("/", userRouter);
 
 app.post("/", async (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -27,7 +33,7 @@ app.get("/", async (req: Request, res: Response) => {
     const users = await prisma.user.findMany();
     res.send(users);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 });
 
